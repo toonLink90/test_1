@@ -201,7 +201,39 @@ void handleNotFound(AsyncWebServerRequest *request)
 {
   request->send(404, "text/plain", "File Not Found");
 }
+void moveCar(int valueInt)
+{
+  Serial.printf("Got value as %d\n", valueInt);
+  switch(valueInt)
+  {
+    case UP :
+      rotatMotor(RIGHT_MOTOR, FORWARD);
+      rotatMotor(LEFT_MOTOR, FORWARD);
+    break;
+    case DOWN :
+    rotatMotor(RIGHT_MOTOR,BACKWARD);
+    rotatMotor(LEFT_MOTOR, BACKWARD);
+    break;
+    case LEFT:
+    rotatMotor(RIGHT_MOTOR, FORWARD);
+    rotatMotor(LEFT_MOTOR, BACKWARD);
+    break;
+    case RIGHT:
+    rotatMotor(RIGHT_MOTOR,BACKWARD);
+    rotatMotor(LEFT_MOTOR, FORWARD);
+    break;
+    case STOP:
+    rotatMotor(RIGHT_MOTOR,STOP);
+    rotatMotor(LEFT_MOTOR, STOP);
+    break;
+    default:
+    rotatMotor(RIGHT_MOTOR,STOP);
+    rotatMotor(LEFT_MOTOR, STOP);
+    break;
+    
 
+  }
+}
 void onCarInputWebSocketEvent(AsyncWebSocket *server, 
                              AsyncWebSocketClient *client, 
                              AwsEventType type, 
@@ -270,39 +302,7 @@ void rotatMotor(int motorNumber, int motorDirection)
   }
 }
 
-void moveCar(int valueInt)
-{
-  Serial.printf("Got value as %d\n", valueInt);
-  switch(valueInt)
-  {
-    case UP :
-      rotatMotor(RIGHT_MOTOR, FORWARD);
-      rotatMotor(LEFT_MOTOR, FORWARD);
-    break;
-    case DOWN :
-    rotatMotor(RIGHT_MOTOR,BACKWARD);
-    rotatMotor(LEFT_MOTOR, BACKWARD);
-    break;
-    case LEFT:
-    rotatMotor(RIGHT_MOTOR, FORWARD);
-    rotatMotor(LEFT_MOTOR, BACKWARD);
-    break;
-    case RIGHT:
-    rotatMotor(RIGHT_MOTOR,BACKWARD);
-    rotatMotor(LEFT_MOTOR, FORWARD);
-    break;
-    case STOP:
-    rotatMotor(RIGHT_MOTOR,STOP);
-    rotatMotor(LEFT_MOTOR, STOP);
-    break;
-    default:
-    rotatMotor(RIGHT_MOTOR,STOP);
-    rotatMotor(LEFT_MOTOR, STOP);
-    break;
-    
 
-  }
-}
 
 void setup() {
   setUpPinModes();
