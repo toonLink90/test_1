@@ -191,7 +191,24 @@ void setUpPinModes()
   }
 
 }
-
+void rotatMotor(int motorNumber, int motorDirection)
+{
+  if(motorDirection == FORWARD)
+  {
+    digitalWrite(motorPins[motorNumber].pinIN1, HIGH);
+    digitalWrite(motorPins[motorNumber].pinIN2, LOW);
+  }
+  else if (motorDirection == BACKWARD)
+  {
+    digitalWrite(motorPins[motorNumber].pinIN1, LOW);
+    digitalWrite(motorPins[motorNumber].pinIN2, HIGH);
+  }
+  else
+  {
+    digitalWrite(motorPins[motorNumber].pinIN1, LOW);
+    digitalWrite(motorPins[motorNumber].pinIN2, LOW);
+  }
+}
 void handleRoot(AsyncWebServerRequest *request)
 {
   request->send(200, "text/html", htmlHomePage);
@@ -283,24 +300,7 @@ void onCarInputWebSocketEvent(AsyncWebSocket *server,
   }
 }
 
-void rotatMotor(int motorNumber, int motorDirection)
-{
-  if(motorDirection == FORWARD)
-  {
-    digitalWrite(motorPins[motorNumber].pinIN1, HIGH);
-    digitalWrite(motorPins[motorNumber].pinIN2, LOW);
-  }
-  else if (motorDirection == BACKWARD)
-  {
-    digitalWrite(motorPins[motorNumber].pinIN1, LOW);
-    digitalWrite(motorPins[motorNumber].pinIN2, HIGH);
-  }
-  else
-  {
-    digitalWrite(motorPins[motorNumber].pinIN1, LOW);
-    digitalWrite(motorPins[motorNumber].pinIN2, LOW);
-  }
-}
+
 
 
 
